@@ -1,0 +1,457 @@
+@import url(../../../https://fonts.googleapis.com/css?family=Arapey:400,400i);
+@import url(../../../undefined);
+@primaryColor: #D901ED;
+@secondaryColor: #46004C;
+@successColor: #2BE080;
+@infoColor: #1A5CEB;
+@warningColor: #E0C119;
+@dangerColor: #EB5A1A;
+@titleFont: 'Arapey', sans-serif;
+@subtitleFont: undefined;
+@textFont: undefined;
+@isRoundedButtons: true;
+// MIXINS
+
+.button-variant(@background, @color) {
+
+    @border: @background;
+
+    @active-background: if(
+        eq(@background, @color),
+        #d4d4d4,
+        darken(@background, 15%)
+    );
+    @active-color: @color;
+    @active-border: @active-background;
+
+    background-color: transparent;
+    border-color: @color;
+    color: @color;
+
+    &:hover,
+    &:focus,
+    &.focus,
+    &:active,
+    &.active {
+        color: @color;
+        background-color: @background;
+        border-color: @background;
+    }
+
+    &.disabled, &:disabled {
+        color: @active-color !important;
+        background-color: @active-background !important;
+        border-color: @active-border !important;
+    }
+
+}
+
+.button-outline-variant(@color) {
+
+    @active-color: #fff;
+    @active-background: @color;
+    @new-color: if(
+        eq(@color, @active-color),
+        #fff,
+        darken(@color, 20%)
+    );
+
+    background: none;
+    border-color: @new-color;
+    color: @new-color;
+
+    &:hover,
+    &:focus,
+    &.focus,
+    &:active,
+    &.active {
+        color: @active-color;
+        background-color: @active-background;
+        border-color: @active-background;
+    }
+
+    &.disabled, &:disabled {
+        color: @active-color !important;
+        background-color: @active-background !important;
+        border-color: @active-background !important;
+    }
+
+}
+
+.plan-variant(@className, @color) {
+    &@{className} {
+        .mbr-plan-subtitle,
+        .mbr-plan-price-desc {
+            @max: max(red(@color), green(@color), blue(@color));
+            & when (@max > 200) {
+                color: lighten(@color, 40%);
+            }
+            & when (@max > 85) and (@max <= 200) {
+                color: lighten(@color, 25%);
+            }
+            & when (@max > 50) and (@max <= 85) {
+                color: lighten(@color, 45%);
+            }
+            & when (@max <= 50) {
+                color: lighten(@color, 70%);
+            }
+        }
+    }
+}
+
+.subtitleFont() {
+    font-family: @subtitleFont;
+    & when not(includes(@subtitleFont, 'Lora')) {
+        font-style: normal;
+    }
+}
+
+
+/*TITLE*/
+.alert,
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6,
+.display-1, .display-2, .display-3, .display-4,
+.mbr-figure .mbr-figure-caption,
+.mbr-slider-slide,
+.mbr-gallery-title,
+.mbr-map [data-state-details],
+.mbr-price, //custom
+.timer,
+cite,
+.page_head blockquote p
+ {
+    font-family: @titleFont;
+}
+
+.mbr-footer-content,
+.mbr-footer .mbr-contacts {
+    h1, h2, h3, h4,
+    p strong, strong {
+        font-family: @titleFont;
+    }
+}
+
+.mbr-author {
+    &-name { font-family: @titleFont; }
+    &-desc { .subtitleFont(); }
+}
+
+.mbr-plan {
+    &-title { font-family: @textFont; }
+    &-subtitle, &-price-desc {
+        .subtitleFont();
+    }
+}
+
+/*SUBTITLE*/
+.btn-sm,
+.btn, 
+.lead a,
+.lead blockquote,
+.mbr-section-subtitle,
+.mbr-section-hero .mbr-section-lead,
+.mbr-cards .card-subtitle,
+.mbr-testimonial .card-block,
+.nav-link.link, .dropdown-item
+{
+    .subtitleFont();
+}
+
+/*TEXT*/
+body, input, textarea, p, li,
+.mbr-gallery-filter ul li span,
+.mbr-company .list-group-text,
+.mbr-section-text {
+    font-family: @textFont;
+}
+.mbr-footer-content, .mbr-footer .mbr-contacts {
+    li {
+        font-family: @textFont;
+    }
+}
+
+
+/*ROUNDED BUTTONS*/
+.btn when(@isRoundedButtons) {
+    border-radius: 40px;
+}
+.btn:before when(@isRoundedButtons) {
+    border-radius: 40px;
+}
+.btn:after when(@isRoundedButtons) {
+    border-radius: 40px;
+}
+
+.mbr-subscribe .btn when(@isRoundedButtons) {
+    border-radius: 40px !important;
+}
+
+/*COLORS*/
+a,
+.alert,
+.list-img .mbr-iconfont,
+.content1 .image .mbr-iconfont:hover,
+.c-info .timer,
+.contacts .mbr-iconfont,
+.mbr-gallery-filter li.active
+{
+    color: @primaryColor;
+}
+
+.item-layer,
+.close:hover
+{
+    background: fade(@primaryColor, 50%);
+}
+
+
+
+.styled:before,
+.styled span:before,
+.content3 .image .mbr-iconfont:hover,
+.folow:before, .date:before,
+.mbr-gallery-filter li:before,
+.separator:before,
+.bgc
+{
+    background: @primaryColor;
+}
+
+input:focus,
+textarea:focus
+{
+    border-color: @primaryColor !important;   
+}
+
+.mbr-slider .carousel-indicators li.active,
+.mbr-slider .carousel-indicators li:hover
+{
+    background-color: @primaryColor !important;
+    border-color: @primaryColor !important;
+}
+
+
+a:hover,
+.team-item.news h5 a:hover,
+.team-item.news h3 a:hover,
+.adr-link:hover,
+.mbr-gallery-filter li:hover,
+.news-min .text a:hover
+{
+    color: @primaryColor + #111111;
+}
+
+.mbr-section-subtitle,
+.content1 .image .mbr-iconfont
+{
+    color: @secondaryColor;
+}
+
+.bg-primary { background-color: @primaryColor !important; }
+.bg-success { background-color: @successColor !important; }
+.bg-info { background-color: @infoColor !important; }
+.bg-warning { background-color: @warningColor !important; }
+.bg-danger { background-color: @dangerColor !important; }
+
+.btn-primary { .button-variant(@primaryColor, #fff); }
+.btn-secondary { .button-variant(@secondaryColor, #fff); }
+.btn-info { .button-variant(@infoColor, #222); }
+.btn-success { .button-variant(@successColor, #fff); }
+.btn-warning { .button-variant(@warningColor, #fff); }
+.btn-danger { .button-variant(@dangerColor, #fff); }
+.btn-black {color: #fff; background: #222; border: #222;}
+.btn-white {color: #222; background: #fff; border: #fff;}
+.btn-black:hover {background: @primaryColor; border: @primaryColor; color: #fff;}
+.btn-white:hover {background: @primaryColor; border: @primaryColor; color: #fff;}
+
+.btn-primary-outline { .button-outline-variant(@primaryColor); }
+.btn-secondary-outline { .button-outline-variant(@secondaryColor); }
+.btn-info-outline { .button-outline-variant(@infoColor); }
+.btn-success-outline { .button-outline-variant(@successColor); }
+.btn-warning-outline { .button-outline-variant(@warningColor); }
+.btn-danger-outline { .button-outline-variant(@dangerColor); }
+
+.text-primary { color: @primaryColor !important; }
+.text-success { color: @successColor !important; }
+.text-info { color: @infoColor !important; }
+.text-warning { color: @warningColor !important; }
+.text-danger { color: @dangerColor !important; }
+
+.alert-success { background-color: @successColor; }
+.alert-info { background-color: @infoColor; }
+.alert-warning { background-color: @warningColor; }
+.alert-danger { background-color: @dangerColor; }
+
+.btn-social {
+    border-color: @primaryColor;
+    &:hover { background: @primaryColor; }
+}
+
+.mbr-company .list-group-item.active .list-group-text {
+    color: @primaryColor;
+}
+
+.mbr-footer {
+    p, ul {
+        a {
+            color: @primaryColor;
+        }
+    }
+}
+.mbr-footer-content, .mbr-footer .mbr-contacts {
+    li {
+        &::before { background: @primaryColor; }
+        a:hover { color: @primaryColor; }
+    }
+}
+
+.lead {
+    a, a:hover { color: @primaryColor; }
+    blockquote { border-color: @primaryColor; }
+ }
+
+.mbr-plan-header {
+    .plan-variant(~'.bg-primary', @primaryColor);
+    .plan-variant(~'.bg-success', @successColor);
+    .plan-variant(~'.bg-info', @infoColor);
+    .plan-variant(~'.bg-warning', @warningColor);
+    .plan-variant(~'.bg-danger', @dangerColor);
+}
+
+.mbr-small-footer a,
+.mbr-gallery-filter li:hover {
+    color: @primaryColor;
+}
+
+/*image*/
+.mbr-figure .mbr-figure-caption-over
+{
+    background: -moz-linear-gradient(left, fade(@primaryColor, 20%), fade(@primaryColor+#222222, 70%)) !important;
+    background: -ms-linear-gradient(left, fade(@primaryColor, 20%), fade(@primaryColor+#222222, 70%)) !important;
+    background: -o-linear-gradient(left, fade(@primaryColor, 20%), fade(@primaryColor+#222222, 70%)) !important;
+    background: -webkit-linear-gradient(left, fade(@primaryColor, 20%), fade(@primaryColor+#222222, 70%)) !important;
+    background: linear-gradient(left, fade(@primaryColor, 20%), fade(@primaryColor+#222222, 70%)) !important;
+}
+/*progress bar*/
+.progress-primary[value]::-webkit-progress-value {
+    background-color: @primaryColor;
+}
+.progress-primary[value]::-moz-progress-bar {
+    background-color: @primaryColor;
+}
+.progress-primary[value]::-ms-fill{
+    background-color: @primaryColor;
+}
+@media screen and (min-width: ~'0\0') {
+    .progress-primary .progress-bar {
+        background-color: @primaryColor;
+    }
+}
+/*process*/
+.process1 .image .bgr
+{
+    background: -webkit-linear-gradient(left,fade(@primaryColor, 20%),fade(@primaryColor+#222222, 70%));
+    background: -o-linear-gradient(right,fade(@primaryColor, 20%),fade(@primaryColor+#222222, 70%));
+    background: -moz-linear-gradient(right,fade(@primaryColor, 20%),fade(@primaryColor+#222222, 70%));
+    background: linear-gradient(to right,fade(@primaryColor, 20%),fade(@primaryColor+#222222, 70%));
+}
+/*accordion*/
+.panel.active .panel-heading a,
+.panel:hover .panel-heading a
+{border-color: @primaryColor;}
+.panel-heading a:hover span:before,
+.panel-heading a:hover span:after,
+.panel.active .panel-heading a span:after
+{background: @primaryColor;}@isPublish: true;
+
+#menu4-0 {
+.hide-buttons .nav-btn {
+  display: none !important;
+}
+.navbar-caption {
+  color: #ffffff;
+}
+.navbar-toggler {
+  color: #989898;
+}
+.close-icon::before, .close-icon::after {
+  background-color: #989898;
+}
+.link, .dropdown-item {
+  color: #989898;
+}
+.link {
+  font-size: 0.75rem;
+}
+.dropdown-item, .nav-dropdown-sm .link {
+  font-size: 0.812rem;
+}
+.link:hover, .dropdown-item:hover, .link:focus, .dropdown-item:focus {
+  color: #222;
+}
+.link[aria-expanded="true"], .dropdown-menu {
+  background: #e6e6e6;
+}
+.nav-dropdown-sm .link:focus, .nav-dropdown-sm .link:hover, .nav-dropdown-sm .dropdown-item:focus, .nav-dropdown-sm .dropdown-item:hover {
+  background: #f7f7f7!important;
+}
+.navbar, .nav-dropdown-sm, .nav-dropdown-sm .link[aria-expanded="true"], .nav-dropdown-sm .dropdown-menu {
+  background: #fff;
+}
+.bg-color.transparent .link {
+  color: #989898;
+  transition: none;
+}
+.navbar-toggler i, .navbar-toggler em, .navbar-toggler i:before, .navbar-toggler em:before, .navbar-toggler i:after, .navbar-toggler em:after {
+  background: #989898;
+}
+.navbar-toggler[aria-expanded="true"] i, .navbar-toggler[aria-expanded="true"] em {
+  background: transparent;
+}
+.bg-color.transparent.opened .link {
+  transition: color .2s ease-in-out;
+}
+.bg-color.transparent.opened .link:hover, .bg-color.transparent.opened .link:focus {
+  color: #222;
+}
+.link[aria-expanded="true"], .dropdown-item[aria-expanded="true"] {
+  color: #222!important;
+}
+}
+
+#header1-1 {
+}
+
+#process1-2 {
+}
+
+#content6-3 {
+}
+
+#content4-4 {
+}
+
+#slider6-5 {
+}
+
+#news1-6 {
+}
+
+#gallery2-7 {
+}
+
+#accordion1-8 {
+}
+
+#contacts1-9 {
+}
+
+#social2-a {
+.mbr-section-title, .btn-social {
+  color: #232323;
+}
+}
+
+#footer1-b {
+}
